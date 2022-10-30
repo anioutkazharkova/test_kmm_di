@@ -3,7 +3,7 @@ package com.azharkova.news.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.azharkova.otus_kmm.data.NewsItem
+import com.azharkova.test_kmm_di.data.NewsItem
 
 
 class NewsAdapter: RecyclerView.Adapter<NewsItemHolder>() {

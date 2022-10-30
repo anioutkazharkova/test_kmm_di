@@ -5,8 +5,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.azharkova.kmm_news.android.R
-import com.azharkova.news.util.loadImage
-import com.azharkova.otus_kmm.data.NewsItem
+import com.azharkova.test_kmm_di.data.NewsItem
 
 class NewsItemHolder(inflater: LayoutInflater,
                               container: ViewGroup
@@ -24,7 +23,9 @@ class NewsItemHolder(inflater: LayoutInflater,
 
     override fun bindItem(item: NewsItem) {
         date?.text = item.publishedAt
-        image?.loadImage(item.urlToImage ?: "")
+        try {
+            //image?.loadImage(item.urlToImage ?: "")
+        }catch (e: Exception){}
         title?.text = item.title ?: ""
     }
 

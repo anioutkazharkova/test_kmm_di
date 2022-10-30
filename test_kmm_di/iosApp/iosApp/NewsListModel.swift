@@ -15,14 +15,20 @@ class NewsListModel : ObservableObject, INewsView {
     
     @Published var items: [NewsItem] = [NewsItem]()
     
-    private lazy var presenter: INewsPresenter = {
-        let presenter = NewsPresenter()
-        presenter.attach(view: self)
+    private lazy var presenter: INewsPresenter? = {
+        let presenter = ConfigFactory().createPresenter(view: self) as? INewsPresenter
+           presenter?.attach(view: self)
+           return presenter
+       }()
+    
+ /* private lazy var presenter: INewsPresenter? = {
+     // let presenter = DIFabric.shared.resolveDirect() as? NewsPresenter
+        presenter?.attach(view: self)
         return presenter
-    }()
+    }()*/
     
     func loadNews() {
-        self.presenter.loadNews()
+      self.presenter?.loadNews()
     }
     
     func setupData(data: NewsList) {

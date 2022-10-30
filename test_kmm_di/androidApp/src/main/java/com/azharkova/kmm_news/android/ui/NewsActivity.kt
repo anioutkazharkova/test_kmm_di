@@ -1,36 +1,31 @@
 package com.azharkova.news.ui
 
+import DIFabric
 import android.os.Bundle
-import android.widget.Button
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.azharkova.kmm_news.android.R
 import com.azharkova.news.adapter.NewsAdapter
-import com.azharkova.otus_kmm.*
+import com.azharkova.test_kmm_di.*
 
-import com.azharkova.otus_kmm.data.NewsList
-import org.kodein.di.DI
-import org.kodein.di.DIAware
-import org.kodein.di.instance
+import com.azharkova.test_kmm_di.data.NewsList
 
 class NewsActivity : AppCompatActivity(), INewsView {
-    private val presenter: INewsPresenter by lazy {
-        val presenter = NewsPresenter()
-        presenter.attach(this)
-        presenter
-    }
-
+    //private val presenter: INewsPresenter by DIFabric.resolve<INewsPresenter>()
+//private  val presenter:INewsPresenter by lazy { DIFabric.presenter }
     private var listView: RecyclerView? = null
+//private val presenter: INewsPresenter by lazy { NewsPresenterDI() }
 
-
+    private val presenter: INewsPresenter? by lazy {
+        ConfigFactory.shared.createPresenter(this) as? INewsPresenter
+    }
+    //private val presenter: INewsPresenter? by lazy { DIFabric.resolveDirect() }
     private var adapter: NewsAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_news)
-
         listView = findViewById<RecyclerView>(R.id.news_list)
         listView?.layoutManager = LinearLayoutManager(this)
 
@@ -46,7 +41,13 @@ class NewsActivity : AppCompatActivity(), INewsView {
 
     override fun onResume() {
         super.onResume()
-        presenter.loadNews()
+        presenter?.attach(this)
+        presenter?.loadNews()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        presenter?.detach()
     }
 
 }

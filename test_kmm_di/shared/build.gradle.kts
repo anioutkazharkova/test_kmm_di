@@ -39,6 +39,7 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
+                implementation("org.kodein.di:kodein-di:7.12.0")
                 implementation("io.ktor:ktor-client-okhttp:$ktorVersion")
             }
         }
