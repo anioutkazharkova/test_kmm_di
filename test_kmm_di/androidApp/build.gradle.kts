@@ -7,7 +7,6 @@ dependencies {
     val lifecycle_version = "2.4.0-rc01"
     implementation(project(":shared"))
     implementation("org.kodein.di:kodein-di:7.12.0")
-
     implementation("com.google.android.material:material:1.3.0")
     implementation("androidx.appcompat:appcompat:1.2.0")
     implementation("androidx.constraintlayout:constraintlayout:2.0.4")

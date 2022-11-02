@@ -16,13 +16,20 @@ class NewsListModel : ObservableObject, INewsView {
     @Published var items: [NewsItem] = [NewsItem]()
     
     private lazy var presenter: INewsPresenter? = {
-        let presenter = ConfigFactory().createPresenter(view: self) as? INewsPresenter
+        let presenter = //KoinDIFabric.companion.instance.resolve(type: NewsPresenter.self) as? NewsPresenter //
+        ConfigFactory.companion.shared.createPresenter(view: self) as? INewsPresenter
            presenter?.attach(view: self)
            return presenter
        }()
     
- /* private lazy var presenter: INewsPresenter? = {
-     // let presenter = DIFabric.shared.resolveDirect() as? NewsPresenter
+    /*private lazy var presenter: INewsPresenter? = {
+        let presenter = ConfigFactory.shared.createPresenter(view: self) as? INewsPresenter
+           presenter?.attach(view: self)
+           return presenter
+       }()*/
+    
+/*  private lazy var presenter: INewsPresenter? = {
+      let presenter = DIFabric.shared.resolveDirect() as? NewsPresenter
         presenter?.attach(view: self)
         return presenter
     }()*/

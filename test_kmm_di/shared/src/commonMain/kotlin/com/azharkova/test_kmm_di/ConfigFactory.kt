@@ -9,9 +9,10 @@ interface  IConfigFactory {
 
 class NewsConfig : IConfigFactory {
     override fun createPresenter(): IPresenter? {
-        return DIFabric.resolveDirect<NewsPresenter>() as? INewsPresenter
+        return  KoinDIFabric.instance.resolve(NewsPresenter::class) // DIFabric.resolveDirect<NewsPresenter>() as? INewsPresenter
     }
 }
+
 class ConfigFactory {
     companion object {
         val shared = ConfigFactory()
