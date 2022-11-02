@@ -14,13 +14,20 @@ class NewsListModel : ObservableObject, INewsView {
 
     
     @Published var items: [NewsItem] = [NewsItem]()
+   //@Injected var presenter: NewsPresenter?
+    @ProvidePresenter var presenter: NewsPresenter?
     
+    init() {
+        $presenter.view = self
+    }
+    
+    /*
     private lazy var presenter: INewsPresenter? = {
         let presenter = //KoinDIFabric.companion.instance.resolve(type: NewsPresenter.self) as? NewsPresenter //
         ConfigFactory.companion.shared.createPresenter(view: self) as? INewsPresenter
            presenter?.attach(view: self)
            return presenter
-       }()
+       }()*/
     
     /*private lazy var presenter: INewsPresenter? = {
         let presenter = ConfigFactory.shared.createPresenter(view: self) as? INewsPresenter
@@ -35,6 +42,7 @@ class NewsListModel : ObservableObject, INewsView {
     }()*/
     
     func loadNews() {
+        self.presenter?.attach(view: self)
       self.presenter?.loadNews()
     }
     
